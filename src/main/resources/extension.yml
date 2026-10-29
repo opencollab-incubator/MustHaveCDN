@@ -1,0 +1,6 @@
+id: musthavecdn
+name: MustHaveCDN
+main: dev.opencollab.mhcdn.MHCDNExtension
+api: 2.11.2
+version: ${version}
+authors: [OpenCollab]

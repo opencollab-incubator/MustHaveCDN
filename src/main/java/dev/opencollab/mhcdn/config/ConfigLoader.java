@@ -12,22 +12,13 @@ import java.nio.file.Path;
 public final class ConfigLoader {
     public static final String VERSION_KEY = "config-version";
 
-    /**
-     * Migrations from older config layouts, applied in order to bring a config up to the latest version.
-     * Configs written before versioning was added have no version key and are treated as version 0.
-     * <p>
-     * To change the layout, add the next version here, e.g. renaming a key:
-     * <pre>{@code
-     * .addVersion(2, ConfigurationTransformation.builder()
-     *     .addAction(NodePath.path("old-key"), TransformAction.rename("new-key"))
-     *     .build())
-     * }</pre>
-     */
     private static final ConfigurationTransformation.Versioned MIGRATIONS = ConfigurationTransformation.versionedBuilder()
-        .versionKey(VERSION_KEY)
-        // 0 -> 1: introduced config-version, layout unchanged
-        .addVersion(1, ConfigurationTransformation.empty())
-        .build();
+            .versionKey(VERSION_KEY)
+            // 0 -> 1: introduced config-version, layout unchanged
+            .addVersion(1, ConfigurationTransformation.empty())
+            // 1 -> 2: add session-packs
+            .addVersion(2, ConfigurationTransformation.empty())
+            .build();
 
     private ConfigLoader() {
     }

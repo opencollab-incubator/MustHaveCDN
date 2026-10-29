@@ -24,6 +24,10 @@ public interface Config {
     @DefaultBoolean(true)
     boolean fallback();
 
+    @Comment("Should the extension also upload session-based packs? Disabling this means if any path based session packs get added, all packs will fallback to local packs.")
+    @DefaultBoolean(false)
+    boolean sessionPacks();
+
     @Comment("Cloudflare R2 bucket the resource packs are uploaded to")
     R2 r2();
 

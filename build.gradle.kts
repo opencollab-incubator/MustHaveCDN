@@ -45,6 +45,7 @@ tasks.processResources {
 
 tasks.shadowJar {
     archiveClassifier = ""
+    archiveVersion = ""
     mergeServiceFiles()
     relocate("org.spongepowered.configurate", "dev.opencollab.mhcdn.shadow.configurate")
     relocate("org.yaml.snakeyaml", "dev.opencollab.mhcdn.shadow.snakeyaml")

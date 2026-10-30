@@ -35,3 +35,8 @@ jobs:
             --title "$VERSION (build $GITHUB_RUN_NUMBER)" \
             --prerelease \
             --generate-notes
+
+      - name: Upload to Modrinth
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        run: ./gradlew modrinth

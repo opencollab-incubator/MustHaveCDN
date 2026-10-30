@@ -1,6 +1,7 @@
 plugins {
     id("java")
     id("com.gradleup.shadow") version "9.6.1"
+    id("com.modrinth.minotaur") version "2.10.0"
 }
 
 group = "dev.opencollab.mhcdn"
@@ -58,4 +59,20 @@ tasks.shadowJar {
 
 tasks.build {
     dependsOn(tasks.shadowJar)
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "musthavecdn"
+    versionNumber = System.getenv("GITHUB_RUN_NUMBER")?.let { "${project.version}-build.$it" } ?: project.version.toString()
+    versionName = System.getenv("GITHUB_RUN_NUMBER")?.let { "${project.version} (build $it)" } ?: project.version.toString()
+    versionType = "beta"
+    uploadFile.set(tasks.shadowJar)
+    loaders.add("geyser")
+    gameVersions.addAll("1.21.11", "26.1", "26.1.1", "26.1.2", "26.2", "26.3")
+    syncBodyFrom = rootProject.file("README.md").readText(Charsets.UTF_8)
+}
+
+tasks.modrinth {
+    dependsOn(tasks.modrinthSyncBody)
 }

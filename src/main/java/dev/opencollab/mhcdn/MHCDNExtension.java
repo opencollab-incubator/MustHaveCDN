@@ -51,6 +51,10 @@ public class MHCDNExtension implements Extension {
             case R2 -> new R2Uploader(this.config);
             case S3 -> new S3Uploader(this.config);
         };
+
+        if (this.config.sessionPacks()) {
+            logger().warning("Uploading of session packs has been enabled, this will block session join until packs are uploaded.");
+        }
     }
 
     @Subscribe
